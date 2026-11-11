@@ -1,8 +1,7 @@
 import type { Tamu } from "~/types/main.type";
 
 export const UseTamu = () => {
-
- const loading = ref(false);
+  const loading = ref(false);
   const error = ref<string | null>(null);
   const tamuList: Ref<Tamu[]> = ref([]);
   const { getToken } = UseStorage();
@@ -22,7 +21,7 @@ export const UseTamu = () => {
         },
       });
       tamuList.value = res;
-      console.log("tamuLiast:" , res)
+      console.log("tamuLiast:", res);
       return res;
     } catch (err: any) {
       error.value = err.message;
@@ -32,8 +31,35 @@ export const UseTamu = () => {
     }
   };
 
+  const exportTamuToExcel = async () => {
+    try {
+      const res = await $fetch(`${apiUrl}/api/v1/guest-book/export`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: "blob",
+      });
 
-    const approveTamu = async (id: number) => {
+      const blob = new Blob([res], {
+        type: "text/csv;charset=utf-8;",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "tamu.csv";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    } catch (err) {
+      console.error("Gagal export tamu:", err);
+    }
+  };
+
+  const approveTamu = async (id: number) => {
     try {
       await $fetch(`${apiUrl}/api/v1/guest-book/approve/${id}`, {
         method: "PUT",
@@ -65,12 +91,13 @@ export const UseTamu = () => {
     }
   };
 
-    return {
+  return {
     tamuList,
     loading,
     error,
     fetchAllTamu,
     approveTamu,
     rejectTamu,
+    exportTamuToExcel,
   };
 };

@@ -55,11 +55,20 @@
                 </div>
                 Undangan Menunggu Persetujuan
               </h2>
-              <span
-                class="bg-secondary-red text-white px-4 py-2 rounded-full font-semibold"
-              >
-                {{ pendingInvitations.length }} Undangan
-              </span>
+              <div class="flex items-center gap-2">
+                <span
+                  class="bg-secondary-red text-white px-4 py-2 rounded-full font-semibold"
+                >
+                  {{ pendingInvitations.length }} Undangan
+                </span>
+
+                <button
+                  class="bg-secondary-red text-white px-4 py-2 rounded-full font-semibold hover: cursor-pointer"
+                  @click="exportTamuToExcel"
+                >
+                  Export ke Excel
+                </button>
+              </div>
             </div>
 
             <div v-if="loading" class="text-center py-10 text-gray-500">
@@ -204,8 +213,15 @@
 </template>
 
 <script setup lang="ts">
-const { tamuList, fetchAllTamu, approveTamu, rejectTamu, loading, error } =
-  UseTamu();
+const {
+  tamuList,
+  fetchAllTamu,
+  approveTamu,
+  rejectTamu,
+  exportTamuToExcel,
+  loading,
+  error,
+} = UseTamu();
 
 const showNotification = ref(false);
 const notificationMessage = ref("");

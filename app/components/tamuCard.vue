@@ -14,7 +14,7 @@
           {{ tamu.instance_name }}
         </p>
       </div>
-      <span
+      <!-- <span
         class="px-3 py-1 rounded-full text-xs sm:text-sm font-semibold w-fit"
         :class="{
           'bg-yellow-100 text-yellow-800': tamu.status === 'pending',
@@ -29,6 +29,11 @@
               ? "Disetujui"
               : "Ditolak"
         }}
+      </span> -->
+      <span
+        class="px-3 py-1 rounded-full border border-red-100 text-xs sm:text-sm, font-semibold w-fit"
+      >
+        {{ tamu.created_at.slice(0, 10) }}
       </span>
     </div>
 
@@ -94,7 +99,7 @@
 
     <!-- Action Buttons -->
     <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
-      <button
+      <!-- <button
         @click="$emit('approve', tamu.id)"
         class="flex-1 bg-secondary-blue hover:bg-secondary-blue/50 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm sm:text-base"
       >
@@ -136,7 +141,7 @@
           />
         </svg>
         <span class="truncate">Tolak</span>
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
