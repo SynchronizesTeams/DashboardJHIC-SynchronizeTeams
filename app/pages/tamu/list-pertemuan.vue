@@ -41,56 +41,56 @@
           <div
             class="border border-secondary-red rounded-xl shadow-md p-6 mb-6"
           >
-            <div class="flex items-center justify-between mb-6">
-              <h2
-                class="text-2xl font-bold text-gray-800 flex items-center gap-2"
-              >
-                <div
-                  class="py-2 px-3 text-white bg-secondary-red hover:to-secondary-red/50 rounded-full shadow-md transition-all duration-300 transform hover:scale-105"
-                >
-                  <UIcon
-                    name="i-lucide-calendar"
-                    class="size-4 text-white mx-auto"
-                  />
-                </div>
-                Undangan Menunggu Persetujuan
-              </h2>
-              <div
-                class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
-              >
-                <div
-                  class="grid grid-cols-[1fr_auto_1fr] items-center gap-2 w-full sm:w-auto"
-                >
-                  <input
-                    type="date"
-                    v-model="fromDate"
-                    class="min-w-0 w-full bg-secondary-red text-white px-3 py-2 rounded-full text-sm font-semibold cursor-pointer"
-                  />
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+  <h2
+    class="text-2xl font-bold text-gray-800 flex items-center gap-2"
+  >
+    <div
+      class="py-2 px-3 text-white bg-secondary-red hover:to-secondary-red/50 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 shrink-0"
+    >
+      <UIcon
+        name="i-lucide-calendar"
+        class="size-4 text-white mx-auto"
+      />
+    </div>
+    Undangan Menunggu Persetujuan
+  </h2>
+  <div
+    class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
+  >
+    <div
+      class="grid grid-cols-[1fr_auto_1fr] items-center gap-2 w-full sm:w-auto"
+    >
+      <input
+        type="date"
+        v-model="fromDate"
+        class="min-w-0 w-full bg-secondary-red text-white px-3 py-2 rounded-full text-sm font-semibold cursor-pointer"
+      />
 
-                  <p class="text-gray-800 text-sm font-medium">s/d</p>
+      <p class="text-gray-800 text-sm font-medium">s/d</p>
 
-                  <input
-                    type="date"
-                    v-model="toDate"
-                    :min="fromDate"
-                    class="min-w-0 w-full bg-secondary-red text-white px-3 py-2 rounded-full text-sm font-semibold cursor-pointer"
-                  />
-                </div>
+      <input
+        type="date"
+        v-model="toDate"
+        :min="fromDate"
+        class="min-w-0 w-full bg-secondary-red text-white px-3 py-2 rounded-full text-sm font-semibold cursor-pointer"
+      />
+    </div>
 
-                <button
-                  class="w-full sm:w-auto bg-secondary-red text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:opacity-90 transition-opacity"
-                  @click="exportTamuToExcel(fromDate, toDate)"
-                >
-                  Export ke Excel
-                </button>
+    <button
+      class="w-full sm:w-auto bg-secondary-red text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:opacity-90 transition-opacity"
+      @click="exportTamuToExcel(fromDate, toDate)"
+    >
+      Export ke Excel
+    </button>
 
-                <span
-                  class="w-full sm:w-auto text-center bg-secondary-red text-white px-4 py-2 rounded-full text-sm font-semibold"
-                >
-                  {{ pendingInvitations.length }} Undangan
-                </span>
-              </div>
-            </div>
+    <span
+      class="w-full sm:w-auto text-center bg-secondary-red text-white px-4 py-2 rounded-full text-sm font-semibold"
+    >
+      {{ pendingInvitations.length }} Undangan
+    </span>
+  </div>
+</div>
 
             <div v-if="loading" class="text-center py-10 text-gray-500">
               Memuat data undangan...
