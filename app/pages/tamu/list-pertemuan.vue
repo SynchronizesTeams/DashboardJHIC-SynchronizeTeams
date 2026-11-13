@@ -37,7 +37,7 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-3">
           <div
             class="border border-secondary-red rounded-xl shadow-md p-6 mb-6"
           >
@@ -55,19 +55,40 @@
                 </div>
                 Undangan Menunggu Persetujuan
               </h2>
-              <div class="flex items-center gap-2">
-                <span
-                  class="bg-secondary-red text-white px-4 py-2 rounded-full font-semibold"
+              <div
+                class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
+              >
+                <div
+                  class="grid grid-cols-[1fr_auto_1fr] items-center gap-2 w-full sm:w-auto"
                 >
-                  {{ pendingInvitations.length }} Undangan
-                </span>
+                  <input
+                    type="date"
+                    v-model="fromDate"
+                    class="min-w-0 w-full bg-secondary-red text-white px-3 py-2 rounded-full text-sm font-semibold cursor-pointer"
+                  />
+
+                  <p class="text-gray-800 text-sm font-medium">s/d</p>
+
+                  <input
+                    type="date"
+                    v-model="toDate"
+                    :min="fromDate"
+                    class="min-w-0 w-full bg-secondary-red text-white px-3 py-2 rounded-full text-sm font-semibold cursor-pointer"
+                  />
+                </div>
 
                 <button
-                  class="bg-secondary-red text-white px-4 py-2 rounded-full font-semibold hover: cursor-pointer"
-                  @click="exportTamuToExcel"
+                  class="w-full sm:w-auto bg-secondary-red text-white px-4 py-2 rounded-full text-sm font-semibold cursor-pointer hover:opacity-90 transition-opacity"
+                  @click="exportTamuToExcel(fromDate, toDate)"
                 >
                   Export ke Excel
                 </button>
+
+                <span
+                  class="w-full sm:w-auto text-center bg-secondary-red text-white px-4 py-2 rounded-full text-sm font-semibold"
+                >
+                  {{ pendingInvitations.length }} Undangan
+                </span>
               </div>
             </div>
 
@@ -111,7 +132,7 @@
           </div>
         </div>
 
-        <div class="lg:col-span-1">
+        <!-- <div class="lg:col-span-1">
           <div
             class="bg-white rounded-xl shadow-md p-6 sticky top-6 max-h-[80vh] flex flex-col"
           >
@@ -143,7 +164,7 @@
                 Belum ada acara yang disetujui
               </p>
 
-              <!-- <div
+              <-- <div
                 v-for="event in approvedEvents"
                 :key="event.id"
                 class="bg-secondary-red/10 border-l-4 border-secondary-red rounded-lg p-3 hover:bg-secondary-red/20 transition-colors"
@@ -165,7 +186,7 @@
                   </div>
                 </div>
               </div> -->
-            </div>
+        <!-- </div>
 
             <div class="border-t pt-4 shrink-0">
               <div class="flex items-center justify-between text-sm mb-2">
@@ -182,7 +203,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div
@@ -222,6 +243,9 @@ const {
   loading,
   error,
 } = UseTamu();
+
+const fromDate = ref("");
+const toDate = ref("");
 
 const showNotification = ref(false);
 const notificationMessage = ref("");

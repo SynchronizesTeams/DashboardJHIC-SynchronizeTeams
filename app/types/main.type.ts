@@ -142,6 +142,8 @@ export interface Tamu {
   description: string;
   status: string;
   rejection_reason?: string;
+  from: string;
+  to: string;
   approved_at?: string;
   request_date: string;
   created_at: string;

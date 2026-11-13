@@ -31,9 +31,20 @@ export const UseTamu = () => {
     }
   };
 
-  const exportTamuToExcel = async () => {
+  const exportTamuToExcel = async (from?: string, to?: string) => {
     try {
-      const res = await $fetch(`${apiUrl}/api/v1/guest-book/export`, {
+      let url = `${apiUrl}/api/v1/guest-book/export-excel`;
+
+      if (from && to) {
+        const params = new URLSearchParams({
+          from,
+          to,
+        });
+
+        url += `?${params.toString()}`;
+      }
+
+      const res = await $fetch(url, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,18 +53,20 @@ export const UseTamu = () => {
       });
 
       const blob = new Blob([res], {
-        type: "text/csv;charset=utf-8;",
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
 
+      const downloadUrl = URL.createObjectURL(blob);
+
       const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "tamu.csv";
+      link.href = downloadUrl;
+      link.download = "tamu.xlsx";
 
       document.body.appendChild(link);
       link.click();
 
       document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
+      URL.revokeObjectURL(downloadUrl);
     } catch (err) {
       console.error("Gagal export tamu:", err);
     }
