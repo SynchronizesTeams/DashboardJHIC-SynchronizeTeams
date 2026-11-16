@@ -53,7 +53,7 @@
         class="size-4 text-white mx-auto"
       />
     </div>
-    Undangan Menunggu Persetujuan
+    Katalog Undangan Tamu
   </h2>
   <div
     class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
